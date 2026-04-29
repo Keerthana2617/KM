@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <title>Our Day… #KM 💖</title>
@@ -9,110 +9,127 @@ body {
   margin: 0;
   overflow: hidden;
   background: black;
+  font-family: sans-serif;
 }
 
-/* 📸 SLIDES */
+/* SLIDES */
 .slide {
-  display: none;
   position: absolute;
   width: 100%;
   height: 100vh;
+  opacity: 0;
+  transition: 1s;
+}
+
+.slide.active {
+  opacity: 1;
 }
 
 .slide img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-}
-
-/* ACTIVE */
-.active {
-  display: block;
-}
-
-/* 🔘 NAV */
-.nav {
-  position: absolute;
-  top: 50%;
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  z-index: 10;
-}
-
-.nav button {
-  font-size: 30px;
-  background: rgba(0,0,0,0.5);
-  color: white;
-  border: none;
-  padding: 10px;
   cursor: pointer;
 }
 
-/* ❗ DEBUG (shows if image missing) */
-.error {
-  color: white;
-  position: absolute;
-  top: 50%;
-  width: 100%;
-  text-align: center;
+/* TEXT */
+.overlay {
+  position: fixed;
+  top:0;
+  width:100%;
+  height:100%;
+  background: rgba(0,0,0,0.8);
+  display:none;
+  justify-content:center;
+  align-items:center;
+}
+
+.overlay h2 {
+  color:white;
+  text-align:center;
+}
+
+/* NAV */
+.nav {
+  position:absolute;
+  top:50%;
+  width:100%;
+  display:flex;
+  justify-content:space-between;
+}
+
+.nav button {
+  font-size:30px;
+  background: rgba(0,0,0,0.5);
+  color:white;
+  border:none;
+  padding:10px;
+  cursor:pointer;
 }
 </style>
 </head>
 
 <body>
 
-<!-- 📸 SLIDES -->
-<div class="slide active"><img src="./img1.jpg" onerror="showError(1)"></div>
-<div class="slide"><img src="./img2.jpg" onerror="showError(2)"></div>
-<div class="slide"><img src="./img3.jpg" onerror="showError(3)"></div>
-<div class="slide"><img src="./img4.jpg" onerror="showError(4)"></div>
-<div class="slide"><img src="./img5.jpg" onerror="showError(5)"></div>
-<div class="slide"><img src="./img6.jpg" onerror="showError(6)"></div>
-<div class="slide"><img src="./img7.jpg" onerror="showError(7)"></div>
-<div class="slide"><img src="./img8.jpg" onerror="showError(8)"></div>
+<!-- SLIDES -->
+<div class="slide active"><img src="a.jpg" onclick="showText(0)"></div>
+<div class="slide"><img src="b.jpg" onclick="showText(1)"></div>
+<div class="slide"><img src="c.jpg" onclick="showText(2)"></div>
+<div class="slide"><img src="d.jpg" onclick="showText(3)"></div>
+<div class="slide"><img src="e.jpg" onclick="showText(4)"></div>
+<div class="slide"><img src="f.jpg" onclick="showText(5)"></div>
+<div class="slide"><img src="g.jpg" onclick="showText(6)"></div>
+<div class="slide"><img src="h.jpg" onclick="showText(7)"></div>
 
-<!-- 🔘 NAV -->
+<!-- NAV -->
 <div class="nav">
   <button onclick="prev()">❮</button>
   <button onclick="next()">❯</button>
 </div>
 
-<!-- ❗ ERROR MESSAGE -->
-<div id="error" class="error"></div>
+<!-- TEXT -->
+<div class="overlay" id="overlay">
+  <h2 id="text"></h2>
+</div>
 
 <script>
 let slides = document.querySelectorAll(".slide");
 let index = 0;
 
-/* SHOW SLIDE */
-function showSlide(i) {
+const messages = [
+"The moment everything started ❤️",
+"You became my happiness 💖",
+"Every memory with you is special ✨",
+"You make my world better 🌍",
+"I feel lucky to have you 💫",
+"You are my comfort ❤️",
+"My heart chose you 💞",
+"And now… I want you forever 💍"
+];
+
+function showSlide(i){
   slides.forEach(s => s.classList.remove("active"));
   slides[i].classList.add("active");
 }
 
-/* NEXT */
-function next() {
+function next(){
   index++;
   if(index >= slides.length) index = 0;
   showSlide(index);
 }
 
-/* PREVIOUS */
-function prev() {
+function prev(){
   index--;
   if(index < 0) index = slides.length - 1;
   showSlide(index);
 }
 
-/* AUTO SLIDE */
-setInterval(next, 3000);
-
-/* ERROR HANDLER */
-function showError(num){
-  document.getElementById("error").innerText =
-    "Image img" + num + ".jpg not found ❌";
+function showText(i){
+  document.getElementById("overlay").style.display="flex";
+  document.getElementById("text").innerText = messages[i];
 }
+
+setInterval(next, 4000);
 </script>
 
 </body>
