@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>YOU & I 💖</title>
+
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Segoe UI", sans-serif;
+}
+
+body {
+  background: linear-gradient(135deg, #ff758c, #ff7eb3);
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  position: relative;
+}
+
+/* ❤️ FLOATING HEARTS */
+.love {
+  position: absolute;
+  animation: floatLove linear infinite;
+}
+
+@keyframes floatLove {
+  0% {
+    transform: translateY(100vh) scale(0.8);
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.1);
+  }
+  100% {
+    transform: translateY(-10vh) scale(1);
+    opacity: 0;
+  }
+}
+
+/* 💌 CARD */
+.card {
+  background: rgba(255,255,255,0.2);
+  backdrop-filter: blur(15px);
+  padding: 30px;
+  border-radius: 20px;
+  text-align: center;
+  width: 90%;
+  max-width: 400px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+}
+
+.card h1 {
+  color: white;
+  font-size: 30px;
+}
+
+.card p {
+  color: white;
+  margin-top: 10px;
+  line-height: 1.5;
+}
+
+/* 🔘 BUTTON */
+button {
+  margin-top: 20px;
+  padding: 12px 28px;
+  border: none;
+  border-radius: 25px;
+  background: linear-gradient(45deg, #ff3366, #ff66b3);
+  color: white;
+  cursor: pointer;
+  font-size: 16px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+  transition: 0.3s;
+}
+
+button:hover {
+  transform: scale(1.05);
+}
+
+/* 💍 POPUP */
+.popup {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0);
+  background: white;
+  padding: 25px;
+  border-radius: 20px;
+  text-align: center;
+  opacity: 0;
+  transition: 0.4s;
+  width: 90%;
+  max-width: 350px;
+}
+
+.popup.show {
+  transform: translate(-50%, -50%) scale(1);
+  opacity: 1;
+}
+
+.popup h2 {
+  color: #ff3366;
+}
+
+.popup p {
+  margin-top: 10px;
+}
+.burst-heart {
+  position: fixed;
+  font-size: 20px;
+  pointer-events: none;
+  animation: burst 1s ease-out forwards;
+}
+
+/* 🎬 CINEMATIC OVERLAY */
+.cinema {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle, rgba(255,105,180,0.4), rgba(0,0,0,0.8));
+  backdrop-filter: blur(6px);
+  opacity: 0;
+  transition: 0.6s;
+  pointer-events: none;
+}
+
+.cinema.show {
+  opacity: 1;
+}
+
+/* 💖 HEART BURST */
+.burst-heart {
+  position: fixed;
+  font-size: 25px;
+  pointer-events: none;
+  animation: burst 1.5s ease-out forwards;
+}
+
+@keyframes burst {
+  0% {
+    transform: scale(0.5);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-200px) scale(2);
+    opacity: 0;
+  }
+}
+</style>
+</head>
+
+<body>
+<div id="cinema" class="cinema"></div>
+
+<!-- ❤️ FLOATING HEARTS SCRIPT -->
+<script>
+const symbols = ["❤️","💗"];
+
+for (let i = 0; i < 40; i++) {
+  let el = document.createElement("div");
+  el.className = "love";
+  el.innerHTML = symbols[Math.floor(Math.random()*symbols.length)];
+
+  el.style.left = Math.random()*100 + "vw";
+  el.style.animationDuration = (5 + Math.random()*6) + "s";
+  el.style.fontSize = (15 + Math.random()*25) + "px";
+
+  // ❤️ color control
+  if (Math.random() > 0.5) {
+    el.style.color = "#ff0000"; // red
+  } else {
+    el.style.color = "#ff66b3"; // pink
+  }
+
+  document.body.appendChild(el);
+}
+
+</script>
+
+<!-- 💌 MAIN CARD -->
+<div class="card">
+  <h1>YOU & I 💖</h1>
+  <p>
+    Where everything began… and where everything leads.  
+    I want to build a lifetime of memories and promises with you… meant to last forever ❤️
+  </p>
+
+  <button onclick="show()">
+    Are you excited? Let’s go 💖
+  </button>
+</div>
+
+<!-- 💍 PROPOSAL POPUP -->
+<div class="popup" id="popup">
+  <h2>💖 MANI 💖</h2>
+  <p>
+    Every moment with you feels right…  
+    And now, I want to make our bond something truly special and unforgettable ❤️  
+    <br><br>
+    The day you’ve been waiting for is finally here… 💍  
+    <br><br>
+    Will you be mine forever? 💖
+  </p>
+
+  <br><br>
+  <button onclick="goNext()">YES 💍</button>
+</div>
+
+<script>
+function show() {
+  document.getElementById("popup").classList.add("show");
+}
+
+function goNext() {
+
+  document.getElementById("cinema").classList.add("show");
+
+  for (let i = 0; i < 35; i++) {
+    let heart = document.createElement("div");
+    heart.className = "burst-heart";
+    heart.innerHTML = "💖";
+
+    heart.style.left = (window.innerWidth / 2) + "px";
+    heart.style.top = (window.innerHeight / 2) + "px";
+
+    let x = (Math.random() - 0.5) * 500;
+    let y = Math.random() * -400;
+
+    heart.style.transform = `translate(${x}px, ${y}px)`;
+
+    document.body.appendChild(heart);
+
+    setTimeout(() => heart.remove(), 1500);
+  }
+
+  document.body.style.transform = "scale(1.05)";
+  document.body.style.transition = "1s";
+
+  setTimeout(() => {
+    window.location.href = "proposal.html";
+  }, 1800);
+}
+</script>
+
+</body>
+</html>
